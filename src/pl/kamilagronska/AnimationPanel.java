@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseListener;
 import javax.swing.Timer;
 
 public class AnimationPanel extends JPanel implements ActionListener {
@@ -11,11 +13,16 @@ public class AnimationPanel extends JPanel implements ActionListener {
     Graphics2D buf;
     Graphics2D buf2;
     private Timer timer;
+    private Player player = null;
     private int delay = 70;
+    private ML mouseListener;
     public AnimationPanel() {
 //        super();
+        mouseListener = new ML();
         setBackground(Color.pink);
         timer = new Timer(delay,this);
+        this.addMouseListener(mouseListener);
+        this.addMouseMotionListener(mouseListener);
 
     }
     public void initialize(){
@@ -25,7 +32,6 @@ public class AnimationPanel extends JPanel implements ActionListener {
         buf.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         buf2 = (Graphics2D) getGraphics();
         buf2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        /*timer = new Timer(delay, this);*/
     }
     public void addPlayer(){
         if (timer.isRunning()) {
@@ -33,9 +39,15 @@ public class AnimationPanel extends JPanel implements ActionListener {
         } else {
             timer.start();
         }
-        Player player = new Player(buf,delay);
+        if (player ==null){
+            player = new Player(buf,delay,mouseListener
+            );
+            timer.addActionListener(player);
+            new Thread(player).start();
+        }
+        /*player = new Player(buf,delay);
         timer.addActionListener(player);
-        new Thread(player).start();
+        new Thread(player).start();*/
     }
 
     @Override

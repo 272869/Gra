@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="533b15b7-e721-4908-b00d-000b1902a1f9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/pl/kamilagronska/KL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pl/kamilagronska/ML.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pl/kamilagronska/AnimationApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pl/kamilagronska/AnimationApp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pl/kamilagronska/AnimationPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pl/kamilagronska/AnimationPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pl/kamilagronska/Obstacle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pl/kamilagronska/Obstacle.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pl/kamilagronska/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pl/kamilagronska/Player.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -41,6 +41,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/grons/Desktop/Studia/JP/lab_3",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -57,7 +58,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1701279199215</updated>
-      <workItem from="1701279200466" duration="15826000" />
+      <workItem from="1701279200466" duration="26468000" />
     </task>
     <servers />
   </component>
