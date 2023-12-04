@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 public class AnimationApp extends JFrame{
     private JPanel contentPane;
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                /* try {
@@ -31,11 +31,22 @@ public class AnimationApp extends JFrame{
         setContentPane(contentPane);
         contentPane.setLayout(null);
         //drugi panel kanwa
+        AnimationPanel canwa = new AnimationPanel();
+        canwa.setBounds(10, 11, 570, 520);
+        contentPane.add(canwa);
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                canwa.initialize();
+            }
+        });
 
         JButton playButton = new JButton("Graj");
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                canwa.addPlayer();
 
             }
         });
