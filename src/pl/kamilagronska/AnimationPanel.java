@@ -4,8 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseListener;
 import javax.swing.Timer;
 
 public class AnimationPanel extends JPanel implements ActionListener {
@@ -34,20 +32,24 @@ public class AnimationPanel extends JPanel implements ActionListener {
         buf2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     }
     public void addPlayer(){
-        if (timer.isRunning()) {
-            timer.stop();
-        } else {
-            timer.start();
-        }
+        timer.start();
+
         if (player ==null){
-            player = new Player(buf,delay,mouseListener
-            );
+            player = new Player(buf,delay,mouseListener);
             timer.addActionListener(player);
             new Thread(player).start();
         }
+        Item item = new Point(delay,buf);
+        timer.addActionListener(item);
+        new Thread(item).start();
         /*player = new Player(buf,delay);
         timer.addActionListener(player);
         new Thread(player).start();*/
+    }
+    public void pause(){
+        if (timer.isRunning()) {
+            timer.stop();
+        }
     }
 
     @Override

@@ -1,4 +1,4 @@
 package pl.kamilagronska;
 
-public class Tree extends Obstacle{
+public class Tree {
 }

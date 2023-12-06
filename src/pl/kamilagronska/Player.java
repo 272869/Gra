@@ -15,23 +15,21 @@ public class Player implements Runnable, ActionListener/*, KeyListener*/ {
     private final int w = 40,h=40;
     private int delay;
     private Graphics2D buf;
-
     private Color color;
     private Shape shape;
     private Area area;
     private AffineTransform transform;
     private int x=10,y=490;
-    int x1 =x,y1=y;
-    private int dx=10,dy=-10;
+
+    //wartości przemieszcznia
+    private float dx=0,dy=0;
+    //aktualne współrzędne gracza
+    private float px=x,py=y;
+
+    private int score=0;
 
     //do obsługi myszy
     private ML ml;
-
-    private boolean isPressed = false;
-
-    public void setPressed(boolean pressed) {
-        isPressed = pressed;
-    }
 
     public Player(Graphics2D buf, int del, ML ml) {
         this.delay = del;
@@ -39,7 +37,7 @@ public class Player implements Runnable, ActionListener/*, KeyListener*/ {
         this.ml = ml;
 
         color = Color.BLACK;
-        shape = new Ellipse2D.Float(x,y,20,20);
+        shape = new Ellipse2D.Float(x,y,w,h);
         transform = new AffineTransform();
         area = new Area(shape);
 
@@ -63,28 +61,7 @@ public class Player implements Runnable, ActionListener/*, KeyListener*/ {
         area = new Area(area);
         transform = new AffineTransform();
 //        Rectangle bounds = area.getBounds();
-        System.out.println(x1);
-        if (x1<80){//zmoienić na aktualne współrzędne
-            if (ml.mousePressed) {
-                transform.translate(dx, dy);
-                x1=x1+dx;
-                y1=y1+dy;
-            }else if (ml.mouseDragged){
-
-
-            }else {
-                if (y1<y){
-                    transform.translate(dx,-dy);
-                    y1 = y1 -dy;
-                }else {
-                    transform.translate(dx,0);
-
-                }
-
-            }
-            area.transform(transform);
-
-        }
+        area.transform(transform);
 
         /*if (ml.mousePressed) {
             transform.translate(dx, dy);
@@ -102,8 +79,16 @@ public class Player implements Runnable, ActionListener/*, KeyListener*/ {
 
             }
 
-        }
-        area.transform(transform);*/
+        }*/
+        dx = ml.x - px;
+        dy = ml.y-py;
+        px = ml.x;
+        py=ml.y;
+        System.out.println(dx);
+        System.out.println(dy);
+        transform.translate(dx,dy);
+        area.transform(transform);
+
         return area;
     }
     @Override

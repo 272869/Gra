@@ -53,7 +53,14 @@ public class AnimationApp extends JFrame{
         playButton.setBounds(10,530,80,23);
         contentPane.add(playButton);
 
-
-
+        JButton pauseButton = new JButton("Pausa");
+        pauseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                canwa.pause();
+            }
+        });
+        pauseButton.setBounds(100,530,80,23);
+        contentPane.add(pauseButton);
     }
 }
