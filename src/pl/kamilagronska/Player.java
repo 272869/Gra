@@ -41,7 +41,6 @@ public class Player implements Runnable, ActionListener/*, KeyListener*/ {
         transform = new AffineTransform();
         area = new Area(shape);
 
-
     }
 
     @Override
@@ -57,39 +56,29 @@ public class Player implements Runnable, ActionListener/*, KeyListener*/ {
         }
 
     }
-    private Shape nextFrame(){//zmienić na podążanie gracza za myszką
+    private Shape nextFrame(){
         area = new Area(area);
         transform = new AffineTransform();
-//        Rectangle bounds = area.getBounds();
         area.transform(transform);
 
-        /*if (ml.mousePressed) {
-            transform.translate(dx, dy);
-            x1=x1+dx;
-            y1=y1+dy;
-        }else if (ml.mouseDragged){
-
-
-        }else {
-            if (y1<y){
-                transform.translate(dx,-dy);
-                y1 = y1 -dy;
-            }else {
-                transform.translate(dx,0);
-
-            }
-
-        }*/
         dx = ml.x - px;
         dy = ml.y-py;
         px = ml.x;
         py=ml.y;
-        System.out.println(dx);
-        System.out.println(dy);
         transform.translate(dx,dy);
         area.transform(transform);
 
         return area;
+    }
+
+    private void collectPoints(){
+       /* for (Point point : AnimationPanel.points){
+            if (shape.contains(point.x, point.y)){
+                point.isTaken = true;
+                score++;
+                AnimationPanel.points.remove(point);
+            }
+        }*/
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -98,31 +87,4 @@ public class Player implements Runnable, ActionListener/*, KeyListener*/ {
         /*buf.setColor(color.darker());
         buf.draw(shape);*/
     }
-
-/*    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        System.out.println("strzałka");
-        if (e.getKeyCode() == KeyEvent.VK_UP){
-            transform = new AffineTransform();
-            area = new Area(area);
-            transform.translate(dx,dy);
-            area.transform(transform);
-            isPressed = true;
-
-        }
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-       *//* transform.translate(dx,-dy);*//*
-        isPressed = false;
-        System.out.println("strzałka koniec");
-
-    }*/
 }

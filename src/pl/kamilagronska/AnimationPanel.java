@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.Timer;
 
 public class AnimationPanel extends JPanel implements ActionListener {
@@ -14,6 +15,14 @@ public class AnimationPanel extends JPanel implements ActionListener {
     private Player player = null;
     private int delay = 70;
     private ML mouseListener;
+    private static boolean isRunning = false;
+
+//    public static ArrayList<Point> points = new ArrayList<>();
+
+    public static boolean isIsRunning() {
+        return isRunning;
+    }
+
     public AnimationPanel() {
 //        super();
         mouseListener = new ML();
@@ -33,23 +42,56 @@ public class AnimationPanel extends JPanel implements ActionListener {
     }
     public void addPlayer(){
         timer.start();
+        isRunning = true;
 
         if (player ==null){
             player = new Player(buf,delay,mouseListener);
             timer.addActionListener(player);
             new Thread(player).start();
         }
-        Item item = new Point(delay,buf);
-        timer.addActionListener(item);
-        new Thread(item).start();
-        /*player = new Player(buf,delay);
-        timer.addActionListener(player);
-        new Thread(player).start();*/
+        addObcastle();
+        addPoint();
     }
     public void pause(){
         if (timer.isRunning()) {
             timer.stop();
+            isRunning = false;
         }
+    }
+    public void addObcastle(){
+        Thread loopThread = new Thread(() -> {
+            while (isRunning) {
+                Item item = new Obcastle(delay, buf);
+                timer.addActionListener(item);
+                new Thread(item).start();
+
+                try {
+                    Thread.sleep(1500); // Oczekiwanie 1,5 sekundy
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        loopThread.start();
+    }
+
+    public void addPoint(){
+        Thread loopThread = new Thread(() -> {
+            while (isIsRunning()) {
+                Point item = new Point(delay, buf);
+//                points.add(item);
+                timer.addActionListener(item);
+                new Thread(item).start();
+
+                try {
+                    Thread.sleep(2000); // Oczekiwanie 1,5 sekundy
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        loopThread.start();
+
     }
 
     @Override
