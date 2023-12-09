@@ -8,11 +8,15 @@ import java.awt.geom.Area;
 public class Obcastle extends Item {
 
     private final int w=30,h=30;
-    private int dx=0,dy=0;
+//    private int dx=0,dy=0;
+    private static boolean endGame = false;
 
+    public static boolean isEndGame() {
+        return endGame;
+    }
 
-    public Obcastle(int delay, Graphics2D buf) {
-        super(delay, buf);
+    public Obcastle(int delay, Graphics2D buf, Player player) {
+        super(delay, buf,player);
         x=random.nextInt(600);
         y=20;
         color = Color.RED;
@@ -50,6 +54,11 @@ public class Obcastle extends Item {
             area = new Area(area);
             transform.translate(dx, dy);
             area.transform(transform);
+
+            if (shape.intersects((int)player.getPx(),(int)player.getPy(),player.getW(),player.getH())){
+                endGame = true;
+                System.out.println("end");//zrobić zakończenie gry gdy gracz dotknie przeszkody
+            }
         }
         return area;
     }

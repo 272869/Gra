@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 public class AnimationApp extends JFrame{
     private JPanel contentPane;
+    public static JLabel jLabel;
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             @Override
@@ -24,6 +25,7 @@ public class AnimationApp extends JFrame{
     }
 
     public AnimationApp() {
+        jLabel = new JLabel("Score: 0");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screen.width-600)/2, (screen.height-600)/2, 600, 600);
@@ -31,6 +33,8 @@ public class AnimationApp extends JFrame{
         setContentPane(contentPane);
         contentPane.setLayout(null);
         //drugi panel kanwa
+        jLabel.setBounds(190,530,80,23);
+        contentPane.add(jLabel);
         AnimationPanel canwa = new AnimationPanel();
         canwa.setBounds(10, 11, 570, 520);
         contentPane.add(canwa);
@@ -39,6 +43,7 @@ public class AnimationApp extends JFrame{
             @Override
             public void run() {
                 canwa.initialize();
+
             }
         });
 
@@ -46,14 +51,14 @@ public class AnimationApp extends JFrame{
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                canwa.addPlayer();
+                canwa.startGame();
 
             }
         });
         playButton.setBounds(10,530,80,23);
         contentPane.add(playButton);
 
-        JButton pauseButton = new JButton("Pausa");
+        JButton pauseButton = new JButton("Pauza");
         pauseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

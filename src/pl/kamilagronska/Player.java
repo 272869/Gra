@@ -19,17 +19,35 @@ public class Player implements Runnable, ActionListener/*, KeyListener*/ {
     private Shape shape;
     private Area area;
     private AffineTransform transform;
-    private int x=10,y=490;
+    private int x=10,y=450;
 
     //wartości przemieszcznia
     private float dx=0,dy=0;
     //aktualne współrzędne gracza
     private float px=x,py=y;
 
-    private int score=0;
+    public int score=0;
 
     //do obsługi myszy
     private ML ml;
+
+    public float getPx() {
+        return px;
+    }
+
+    public float getPy() {
+        return py;
+    }
+
+
+
+    public int getW() {
+        return w;
+    }
+
+    public int getH() {
+        return h;
+    }
 
     public Player(Graphics2D buf, int del, ML ml) {
         this.delay = del;
@@ -62,29 +80,20 @@ public class Player implements Runnable, ActionListener/*, KeyListener*/ {
         area.transform(transform);
 
         dx = ml.x - px;
-        dy = ml.y-py;
         px = ml.x;
-        py=ml.y;
-        transform.translate(dx,dy);
+        if (ml.mousePressed) {
+            System.out.println("x= " + px);
+            System.out.println("Y = " + py);
+        }
+        transform.translate(dx,dy);//zrobić możliwośc ruchu tylko na x
         area.transform(transform);
 
         return area;
     }
 
-    private void collectPoints(){
-       /* for (Point point : AnimationPanel.points){
-            if (shape.contains(point.x, point.y)){
-                point.isTaken = true;
-                score++;
-                AnimationPanel.points.remove(point);
-            }
-        }*/
-    }
     @Override
     public void actionPerformed(ActionEvent e) {
         buf.setColor(color);
         buf.fill(shape);
-        /*buf.setColor(color.darker());
-        buf.draw(shape);*/
     }
 }

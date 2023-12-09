@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import javax.swing.Timer;
 
 public class AnimationPanel extends JPanel implements ActionListener {
@@ -40,7 +39,9 @@ public class AnimationPanel extends JPanel implements ActionListener {
         buf2 = (Graphics2D) getGraphics();
         buf2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     }
-    public void addPlayer(){
+    //jesli starczy czasu zrobić levele
+    //i zapisywanie najlepszego rekordu
+    public void startGame(){
         timer.start();
         isRunning = true;
 
@@ -51,6 +52,7 @@ public class AnimationPanel extends JPanel implements ActionListener {
         }
         addObcastle();
         addPoint();
+//        endGame();
     }
     public void pause(){
         if (timer.isRunning()) {
@@ -58,10 +60,10 @@ public class AnimationPanel extends JPanel implements ActionListener {
             isRunning = false;
         }
     }
-    public void addObcastle(){
+    private void addObcastle(){
         Thread loopThread = new Thread(() -> {
             while (isRunning) {
-                Item item = new Obcastle(delay, buf);
+                Item item = new Obcastle(delay, buf, player);
                 timer.addActionListener(item);
                 new Thread(item).start();
 
@@ -75,10 +77,11 @@ public class AnimationPanel extends JPanel implements ActionListener {
         loopThread.start();
     }
 
-    public void addPoint(){
+
+    private void addPoint(){
         Thread loopThread = new Thread(() -> {
             while (isIsRunning()) {
-                Point item = new Point(delay, buf);
+                Item item = new Point(delay, buf,player);
 //                points.add(item);
                 timer.addActionListener(item);
                 new Thread(item).start();
@@ -91,6 +94,13 @@ public class AnimationPanel extends JPanel implements ActionListener {
             }
         });
         loopThread.start();
+    }
+    public void endGame() {
+        while (isRunning){
+            if (Obcastle.isEndGame()) {
+                timer.stop();
+            }
+        }
 
     }
 
