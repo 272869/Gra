@@ -42,6 +42,7 @@ public class AnimationPanel extends JPanel implements ActionListener {
     //jesli starczy czasu zrobić levele
     //i zapisywanie najlepszego rekordu
     public void startGame(){
+//        timer = new Timer(delay,this);
         timer.start();
         isRunning = true;
 
@@ -52,7 +53,7 @@ public class AnimationPanel extends JPanel implements ActionListener {
         }
         addObcastle();
         addPoint();
-//        endGame();
+        endGame();
     }
     public void pause(){
         if (timer.isRunning()) {
@@ -72,6 +73,8 @@ public class AnimationPanel extends JPanel implements ActionListener {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
+
             }
         });
         loopThread.start();
@@ -80,28 +83,46 @@ public class AnimationPanel extends JPanel implements ActionListener {
 
     private void addPoint(){
         Thread loopThread = new Thread(() -> {
-            while (isIsRunning()) {
+            while (isRunning) {
                 Item item = new Point(delay, buf,player);
-//                points.add(item);
                 timer.addActionListener(item);
                 new Thread(item).start();
 
                 try {
-                    Thread.sleep(2000); // Oczekiwanie 1,5 sekundy
+                    Thread.sleep(2000); // Oczekiwanie 2 sekundy
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         });
         loopThread.start();
-    }
-    public void endGame() {
-        while (isRunning){
-            if (Obcastle.isEndGame()) {
-                timer.stop();
-            }
-        }
 
+    }
+    public void endGame() {//zrobić zęby po skończeniu gry można było zacząć od nowa
+        Thread loopThread = new Thread(() -> {
+            while (isRunning) {
+                if (Obcastle.isEndGame()) {
+                    buf.clearRect(0, 0, getWidth(), getHeight());
+                    buf2.clearRect(0, 0, getWidth(), getHeight());
+                    buf2.setBackground(Color.BLUE);
+                    buf2.drawImage(image,0,0,null);
+                    buf2.setFont(new Font("Arial", Font.PLAIN, 40));
+                    buf2.drawString("Koniec gry",200,250);
+                    player = null;
+                    Obcastle.setEndGame(false);
+                    timer.stop();
+                    isRunning = false;
+
+                }
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+        loopThread.start();
     }
 
     @Override

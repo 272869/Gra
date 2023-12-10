@@ -55,7 +55,7 @@ public class Player implements Runnable, ActionListener/*, KeyListener*/ {
         this.ml = ml;
 
         color = Color.BLACK;
-        shape = new Ellipse2D.Float(x,y,w,h);
+        shape = new Rectangle(x,y,w,h);
         transform = new AffineTransform();
         area = new Area(shape);
 
@@ -63,7 +63,6 @@ public class Player implements Runnable, ActionListener/*, KeyListener*/ {
 
     @Override
     public void run() {
-        System.out.println("run playera");
         while (true) {
             // przygotowanie nastepnego kadru
             shape = nextFrame();
@@ -81,11 +80,8 @@ public class Player implements Runnable, ActionListener/*, KeyListener*/ {
 
         dx = ml.x - px;
         px = ml.x;
-        if (ml.mousePressed) {
-            System.out.println("x= " + px);
-            System.out.println("Y = " + py);
-        }
-        transform.translate(dx,dy);//zrobić możliwośc ruchu tylko na x
+
+        transform.translate(dx,dy);
         area.transform(transform);
 
         return area;

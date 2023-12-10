@@ -49,7 +49,6 @@ public class Point extends Item {
             if (shape.intersects((int)player.getPx(),(int)player.getPy(),player.getW(),player.getH())&&isTaken==false){
                 isTaken = true;
                 player.score++;
-                System.out.println(player.score);
                 color = Color.BLUE;
                 buf.fill(shape); //zmienić sposób znikania punktów z planszy
                 AnimationApp.jLabel.setText("Score: " + player.score);

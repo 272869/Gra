@@ -4,26 +4,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class ML extends MouseAdapter {
-    public boolean mousePressed = false;
-    public boolean mouseDragged = false;
+
     public float x = -1.0f, y = -1.0f;
-    public float dx = -1.0f, dy = -1.0f;
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        this.mousePressed = true;
-        System.out.println("prsesed");
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        System.out.println("released");
-        this.mousePressed = false;
-        this.mouseDragged =false;
-        this.dx = 0;
-        this.dy = 0;
-    }
 
     @Override
     public void mouseMoved(MouseEvent e) {
@@ -31,11 +13,4 @@ public class ML extends MouseAdapter {
         this.y = e.getY();
     }
 
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        System.out.println("Drag");
-        this.mouseDragged = true;
-        this.dx = e.getX() - this.x;
-        this.dy = e.getY() - this.y;
-    }
 }

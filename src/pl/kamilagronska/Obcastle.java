@@ -15,6 +15,10 @@ public class Obcastle extends Item {
         return endGame;
     }
 
+    public static void setEndGame(boolean endGame) {
+        Obcastle.endGame = endGame;
+    }
+
     public Obcastle(int delay, Graphics2D buf, Player player) {
         super(delay, buf,player);
         x=random.nextInt(600);
@@ -38,6 +42,9 @@ public class Obcastle extends Item {
         while (true) {
             // przygotowanie nastepnego kadru
             shape = nextFrame();
+            if (endGame){
+
+            }
             try {
                 Thread.sleep(delay);
             } catch (InterruptedException e) {
@@ -57,9 +64,9 @@ public class Obcastle extends Item {
 
             if (shape.intersects((int)player.getPx(),(int)player.getPy(),player.getW(),player.getH())){
                 endGame = true;
-                System.out.println("end");//zrobić zakończenie gry gdy gracz dotknie przeszkody
             }
         }
         return area;
     }
+
 }
